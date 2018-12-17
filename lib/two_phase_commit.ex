@@ -1,7 +1,4 @@
 defmodule TwoPhaseCommit do
-  alias TwoPhaseCommit.Store
-  alias TwoPhaseCommit.Action
-
   @type store :: module()
   @type action :: module()
   @type ref :: any()
