@@ -22,3 +22,10 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 two_phase_commit-*.tar
 
+# Ignore elixir-ls
+.elixir_ls
+
+# Ignore DS_Store
+.DS_Store
+
+
