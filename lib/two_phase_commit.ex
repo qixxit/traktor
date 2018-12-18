@@ -1,4 +1,12 @@
 defmodule TwoPhaseCommit do
+  @moduledoc """
+    `TwoPhaseCommit` is a library to execute actions in a fault tolerant manner by applying a two-phase-commit pattern for the business logic of the action and for the persistance layer.
+
+    It is mainly defined by thwo behaviours:
+      * `TwoPhaseCommit.Action` for the business logic, and
+      * `TwoPhaseCommit.Store` for the persistance layer.
+  """
+
   @type store :: module()
   @type action :: module()
   @type ref :: any()
