@@ -1,4 +1,9 @@
 defmodule TwoPhaseCommit.Store do
+  @moduledoc """
+    The store specification.
+
+    A store defines the persistance layer for actions executed in a two-phase-commit approch.
+  """
   @type t :: module()
 
   @type ref :: any()
