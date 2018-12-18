@@ -34,4 +34,16 @@ defmodule TwoPhaseCommit do
       {:ok, new_state, revison, result}
     end
   end
+
+  @spec apply(action(), state(), args(), store(), ref(), revision()) ::
+          {:ok, state(), revision(), result :: any()}
+          | on_error()
+  def apply(action, state, args, store, ref, revision) do
+    with {:ok, transaction, transaction_ref} <-
+           prepare(action, state, args, store, ref, revision),
+         {:ok, new_state, revison, result} <-
+           commit(action, state, transaction, store, ref, transaction_ref) do
+      {:ok, new_state, revison, result}
+    end
+  end
 end

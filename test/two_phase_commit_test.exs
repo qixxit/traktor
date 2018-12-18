@@ -17,4 +17,15 @@ defmodule TwoPhaseCommitTest do
     assert result == [:foo, :bar]
     assert {:ok, new_revision, new_state} = Store.get(ref)
   end
+
+  test "apply" do
+    assert {:ok, ref} = Store.start_link(%{})
+    assert {:ok, revision, state} = Store.get(ref)
+
+    assert {:ok, new_state, new_revision, result} =
+             TwoPhaseCommit.apply(Action, state, [:foo, :bar], Store, ref, revision)
+
+    assert result == [:foo, :bar]
+    assert {:ok, new_revision, new_state} = Store.get(ref)
+  end
 end
