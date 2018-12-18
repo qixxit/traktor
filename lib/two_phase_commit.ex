@@ -1,7 +1,4 @@
 defmodule TwoPhaseCommit do
-  alias TwoPhaseCommit.Store
-  alias TwoPhaseCommit.Action
-
   @type store :: module()
   @type action :: module()
   @type ref :: any()
@@ -19,12 +16,12 @@ defmodule TwoPhaseCommit do
   @type on_error :: {:error, error_reason}
 
   @spec prepare(action(), state(), args(), store(), ref(), revision()) ::
-          {:ok, transaction_ref()}
+          {:ok, transaction(), transaction_ref()}
           | on_error()
   def prepare(action, state, args, store, ref, revision) do
     with {:ok, transaction} <- action.prepare(state, args),
          {:ok, transaction_ref} <- store.prepare(ref, revision, action, transaction) do
-      {:ok, transaction_ref}
+      {:ok, transaction, transaction_ref}
     end
   end
 
@@ -34,6 +31,18 @@ defmodule TwoPhaseCommit do
   def commit(action, state, transaction, store, ref, transaction_ref) do
     with {:ok, new_state, result} <- action.commit(state, transaction),
          {:ok, revison} <- store.commit(ref, transaction_ref, new_state) do
+      {:ok, new_state, revison, result}
+    end
+  end
+
+  @spec apply(action(), state(), args(), store(), ref(), revision()) ::
+          {:ok, state(), revision(), result :: any()}
+          | on_error()
+  def apply(action, state, args, store, ref, revision) do
+    with {:ok, transaction, transaction_ref} <-
+           prepare(action, state, args, store, ref, revision),
+         {:ok, new_state, revison, result} <-
+           commit(action, state, transaction, store, ref, transaction_ref) do
       {:ok, new_state, revison, result}
     end
   end

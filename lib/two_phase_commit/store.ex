@@ -9,11 +9,7 @@ defmodule TwoPhaseCommit.Store do
   @type transaction :: term()
   @type transaction_ref :: term()
 
-  @type error_reason ::
-          {:conflict, revision()}
-          | {:pending, transaction_ref()}
-
-  @type on_error :: {:error, error_reason()}
+  @type on_error :: {:error, any()}
 
   @callback get(ref()) ::
               {:ok, revision(), state()}
