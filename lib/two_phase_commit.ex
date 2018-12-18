@@ -16,12 +16,12 @@ defmodule TwoPhaseCommit do
   @type on_error :: {:error, error_reason}
 
   @spec prepare(action(), state(), args(), store(), ref(), revision()) ::
-          {:ok, transaction_ref()}
+          {:ok, transaction(), transaction_ref()}
           | on_error()
   def prepare(action, state, args, store, ref, revision) do
     with {:ok, transaction} <- action.prepare(state, args),
          {:ok, transaction_ref} <- store.prepare(ref, revision, action, transaction) do
-      {:ok, transaction_ref}
+      {:ok, transaction, transaction_ref}
     end
   end
 
