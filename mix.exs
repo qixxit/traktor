@@ -1,13 +1,22 @@
 defmodule TwoPhaseCommit.MixProject do
   use Mix.Project
 
+  @github_url "https://github.com/qixxit/two_phase_commit"
+  @example_github_url "https://github.com/qixxit/two_phase_commit_example"
+  @description "A library to execute actions in a traceable manner."
+
   def project do
     [
       app: :two_phase_commit,
       version: "0.1.0",
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      source_url: @github_url,
+      description: @description,
+      name: "Two Phase Commit",
+      package: package(),
+      docs: docs()
     ]
   end
 
@@ -21,8 +30,29 @@ defmodule TwoPhaseCommit.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+    ]
+  end
+
+  defp package() do
+    [
+      licenses: ["BSD"],
+      maintainers: ["Tobias Kräntzer", "Ed Ellson", "Dorian Iacobescu"],
+      links: %{
+        "GitHub" => @github_url,
+        "Example" => @example_github_url
+        # "Blog Post" => "https://medium.com/blog_post_url",
+      },
+      source_url: @github_url
+    ]
+  end
+
+  defp docs() do
+    [
+      main: "readme",
+      extras: ["README.md"]
+
+      # logo: "maybe/a/logo.png",
     ]
   end
 end

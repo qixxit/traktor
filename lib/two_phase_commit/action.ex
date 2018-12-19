@@ -2,26 +2,31 @@ defmodule TwoPhaseCommit.Action do
   @moduledoc """
     The action specification.
 
-    An action defines the business logic that is executed in a two-phase-commit approch. A module providing the busness logic must export the folloing two functions:
-      * a `prepare/2` function that prepares the execution of the businses logic, and
-      * a `commit/2` function that executes the business logic.
+    An action defines the business logic that is executed in a two-phase-commit approch. A module providing the busness logic must export the following two functions:
+    - `prepare/2` function that prepares the execution of the businses logic
+    - `commit/2` function that executes the business logic
 
     Calling the two functions after each other will run the business logic and return the result.
-
-        with {:ok, transaction} <- prepare(state, args),
-             {:ok, new_state, result} <- commit(state, transaction) do
-          {:ok, new_state, result}
-        end
-
-    Splitting the business logic into the _prepare_ and the _commit_ allows persiting the transaction before commiting the action to be able to recover in case of an failure. Therefore the transaction must contain the all data required to execute the action and to identify an potential previous execution. For example the transaction might contain all request parameters together with a unique request_id. This request_id allows identifying the request at the 3rd party.
+    ```
+      with {:ok, transaction} <- prepare(state, args),
+           {:ok, new_state, result} <- commit(state, transaction) do
+        {:ok, new_state, result}
+      end
+    ```
   """
 
   @type t :: module()
 
+  @typedoc "The state of an entity at a specific revision."
   @type state :: term()
+  @typedoc "Specific arguments required to apply the action to an entity."
   @type args :: any()
+  @typedoc "A transaction contains all the information required to commit an action."
   @type transaction :: term()
+  @typedoc "Data resulting from commiting an action that is not included in the entity state."
+  @type result :: any()
 
+  @typedoc "Action error."
   @type on_error :: {:error, reason :: any()}
 
   @callback prepare(state(), args()) ::
@@ -29,6 +34,6 @@ defmodule TwoPhaseCommit.Action do
               | on_error()
 
   @callback commit(state(), transaction()) ::
-              {:ok, state(), result :: any()}
+              {:ok, state(), result()}
               | on_error()
 end
