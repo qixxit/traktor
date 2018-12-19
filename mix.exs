@@ -3,7 +3,7 @@ defmodule TwoPhaseCommit.MixProject do
 
   @github_url "https://github.com/qixxit/two_phase_commit"
   @example_github_url "https://github.com/qixxit/two_phase_commit_example"
-  @description "A library to execute actions in a fault tolerant manner by applying a two-phase-commit pattern for the business logic and the persistance layer"
+  @description "A library to execute actions in a traceable manner."
 
   def project do
     [
@@ -36,12 +36,12 @@ defmodule TwoPhaseCommit.MixProject do
 
   defp package() do
     [
-      licenses: ["Apache 2.0"],
-      maintainers: [],
+      licenses: ["BSD"],
+      maintainers: ["Tobias Kräntzer", "Ed Ellson", "Dorian Iacobescu"],
       links: %{
         "GitHub" => @github_url,
         "Example" => @example_github_url
-        # "Blog Post" => "https://medium.com/our_blog_post_url",
+        # "Blog Post" => "https://medium.com/blog_post_url",
       },
       source_url: @github_url
     ]

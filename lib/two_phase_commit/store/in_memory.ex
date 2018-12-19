@@ -6,6 +6,7 @@ defmodule TwoPhaseCommit.Store.InMemory do
   ## API
   ##
 
+  @doc "Initialize the in memory store and returns the PID to be used as Entity ref."
   def start_link(initial) do
     GenServer.start_link(__MODULE__, initial)
   end
