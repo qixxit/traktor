@@ -1,4 +1,4 @@
-defmodule TwoPhaseCommit.Store do
+defmodule Traktor.Store do
   @moduledoc """
   The store specification.
 
@@ -10,7 +10,7 @@ defmodule TwoPhaseCommit.Store do
   - `get/2` function which retrieves the current state of an entity with an optional pending transaction.
   """
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Store` behaviour."
+  @typedoc "Module implementing the `Traktor.Store` behaviour."
   @type t :: module()
 
   @typedoc "Unique reference of an entity."
@@ -22,7 +22,7 @@ defmodule TwoPhaseCommit.Store do
   @typedoc "The state of an entity at a specific revision."
   @type state :: term()
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour."
+  @typedoc "Module implementing the `Traktor.Action` behaviour."
   @type action :: module()
 
   @typedoc "A transaction contains all the information required to commit an action."

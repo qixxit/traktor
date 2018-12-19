@@ -1,4 +1,4 @@
-defmodule TwoPhaseCommit.Action do
+defmodule Traktor.Action do
   @moduledoc """
     The action specification.
 
@@ -15,7 +15,7 @@ defmodule TwoPhaseCommit.Action do
     ```
   """
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour."
+  @typedoc "Module implementing the `Traktor.Action` behaviour."
   @type t :: module()
 
   @typedoc "The state of an entity at a specific revision."

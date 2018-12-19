@@ -1,20 +1,20 @@
-defmodule TwoPhaseCommit do
+defmodule Traktor do
   @moduledoc """
-  `TwoPhaseCommit` is a library to execute actions in a traceable manner by applying a two-phase-commit pattern.
+  `Traktor` is a library to execute actions in a traceable manner by applying a two-phase-commit pattern.
 
   It is mainly defined by two behaviours:
-  - `TwoPhaseCommit.Action` for the business logic;
-  - `TwoPhaseCommit.Store` for the persistance layer.
+  - `Traktor.Action` for the business logic;
+  - `Traktor.Store` for the persistance layer.
 
   ### Entity
   An action or a group of actions can be applied to an entity. The action is a behaviour that transforms an entity from one version to another.
   Eg. **booking** and **payment** actions are applied to the **Checkout** entity.
   """
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Store` behaviour. An in memory store is provided with the package."
+  @typedoc "Module implementing the `Traktor.Store` behaviour. An in memory store is provided with the package."
   @type store :: module()
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour."
+  @typedoc "Module implementing the `Traktor.Action` behaviour."
   @type action :: module()
 
   @typedoc "Unique reference of an entity."
