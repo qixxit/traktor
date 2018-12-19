@@ -1,34 +1,38 @@
 defmodule TwoPhaseCommit do
   @moduledoc """
-  `TwoPhaseCommit` is a library to execute actions in a traceable manner by applying a two-phase-commit pattern:
-  - for the business logic of the action, and
-  - for the persistance layer.
+  `TwoPhaseCommit` is a library to execute actions in a traceable manner by applying a two-phase-commit pattern.
 
-  It is mainly defined by tho behaviours:
-  - `TwoPhaseCommit.Action` for the business logic, and
+  It is mainly defined by two behaviours:
+  - `TwoPhaseCommit.Action` for the business logic;
   - `TwoPhaseCommit.Store` for the persistance layer.
 
   ### Entity
   An action or a group of actions can be applied to an entity. The action is a behaviour that transforms an entity from one version to another.
   Eg. **booking** and **payment** actions are applied to the **Checkout** entity.
-
   """
 
-  @typedoc "Module implementing the `TwoPhaseCommit.Store` behaviour."
+  @typedoc "Module implementing the `TwoPhaseCommit.Store` behaviour. An in memory store is provided with the package."
   @type store :: module()
-  @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour. An in memory store is provided with the package."
+
+  @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour."
   @type action :: module()
-  @typedoc "Unique reference for the entity. "
+
+  @typedoc "Unique reference of an entity."
   @type ref :: any()
-  @typedoc "The entity revision."
+
+  @typedoc "The revision of the state of an entity."
   @type revision :: term()
+
   @typedoc "The state of an entity at a specific revision."
   @type state :: term()
+
   @typedoc "A transaction contains all the information required to commit an action."
   @type transaction :: term()
-  @typedoc "Unique reference for a transaction."
+
+  @typedoc "Unique reference of a transaction."
   @type transaction_ref :: term()
-  @typedoc "Specific arguments required to apply the action to an entity."
+
+  @typedoc "Specific arguments required to apply an action to an entity."
   @type args :: any()
 
   @type error_reason ::
