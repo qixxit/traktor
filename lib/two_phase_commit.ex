@@ -59,8 +59,8 @@ defmodule TwoPhaseCommit do
           | on_error()
   def commit(action, state, transaction, store, ref, transaction_ref) do
     with {:ok, new_state, result} <- action.commit(state, transaction),
-         {:ok, revison} <- store.commit(ref, transaction_ref, new_state) do
-      {:ok, new_state, revison, result}
+         {:ok, revision} <- store.commit(ref, transaction_ref, new_state) do
+      {:ok, new_state, revision, result}
     end
   end
 
@@ -71,9 +71,9 @@ defmodule TwoPhaseCommit do
   def apply(action, state, args, store, ref, revision) do
     with {:ok, transaction, transaction_ref} <-
            prepare(action, state, args, store, ref, revision),
-         {:ok, new_state, revison, result} <-
+         {:ok, new_state, revision, result} <-
            commit(action, state, transaction, store, ref, transaction_ref) do
-      {:ok, new_state, revison, result}
+      {:ok, new_state, revision, result}
     end
   end
 end
