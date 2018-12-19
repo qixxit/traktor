@@ -1,27 +1,34 @@
 defmodule TwoPhaseCommit.Store do
   @moduledoc """
-    The store specification.
+  The store specification.
 
-  A store defines the persistance layer for actions executed in a two-phase-commit approch.
-  A module providing the persistance logic must export the following three functions:
-  - `prepare/4` function which persists the prepared data from the prepare action
-  - `commit/3` function which persit the outcome of the commit action
-  - `get/2` function which retrieves the entity and all required information to resume a transaction if necessary.
+  The store is responsible for persisting the state and transactions of an entity and enforces the constraints to apply transactions sequentially.
+
+  A store used in the two-phase-commit approch must export hte following three functions:
+  - `prepare/4` function which persists the prepared transaction;
+  - `commit/3` function which persit the updated state;
+  - `get/2` function which retrieves the current state of an entity with an optional pending transaction.
   """
+
+  @typedoc "Module implementing the `TwoPhaseCommit.Store` behaviour."
   @type t :: module()
 
-  @typedoc "Unique reference for the entity. "
+  @typedoc "Unique reference of an entity."
   @type ref :: any()
-  @typedoc "The entity revision."
+
+  @typedoc "The revision of the state of an entity."
   @type revision :: term()
+
   @typedoc "The state of an entity at a specific revision."
   @type state :: term()
 
   @typedoc "Module implementing the `TwoPhaseCommit.Action` behaviour."
   @type action :: module()
+
   @typedoc "A transaction contains all the information required to commit an action."
   @type transaction :: term()
-  @typedoc "Unique reference for a transaction."
+
+  @typedoc "Unique reference of a transaction."
   @type transaction_ref :: term()
 
   @typedoc "Store error."
