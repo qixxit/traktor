@@ -1,6 +1,6 @@
-defmodule TwoPhaseCommit.Store.InMemory do
+defmodule Traktor.Store.InMemory do
   @behaviour GenServer
-  @behaviour TwoPhaseCommit.Store
+  @behaviour Traktor.Store
 
   ##
   ## API
@@ -15,17 +15,17 @@ defmodule TwoPhaseCommit.Store.InMemory do
   ## Store Callbacks
   ##
 
-  @impl TwoPhaseCommit.Store
+  @impl Traktor.Store
   def get(ref) do
     GenServer.call(ref, :get)
   end
 
-  @impl TwoPhaseCommit.Store
+  @impl Traktor.Store
   def prepare(ref, revision, action, transaction) do
     GenServer.call(ref, {:prepare, revision, action, transaction})
   end
 
-  @impl TwoPhaseCommit.Store
+  @impl Traktor.Store
   def commit(ref, transaction_ref, state) do
     GenServer.call(ref, {:commit, transaction_ref, state})
   end

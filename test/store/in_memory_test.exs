@@ -1,7 +1,7 @@
-defmodule TwoPhaseCommit.Store.InMemoryTest do
+defmodule Traktor.Store.InMemoryTest do
   use ExUnit.Case
 
-  alias TwoPhaseCommit.Store.InMemory, as: Store
+  alias Traktor.Store.InMemory, as: Store
 
   defmodule Action do
   end

@@ -1,13 +1,13 @@
-defmodule TwoPhaseCommit.MixProject do
+defmodule Traktor.MixProject do
   use Mix.Project
 
-  @github_url "https://github.com/qixxit/two_phase_commit"
+  @github_url "https://github.com/qixxit/traktor"
   @example_github_url "https://github.com/qixxit/two_phase_commit_example"
   @description "A library to execute actions in a traceable manner."
 
   def project do
     [
-      app: :two_phase_commit,
+      app: :traktor,
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
