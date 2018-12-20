@@ -3,6 +3,7 @@ defmodule Traktor.MixProject do
 
   @github_url "https://github.com/qixxit/traktor"
   @example_github_url "https://github.com/qixxit/two_phase_commit_example"
+  @article_url "https://medium.com/blog_post_url"
   @description "A library to execute actions in a traceable manner."
 
   def project do
@@ -40,8 +41,8 @@ defmodule Traktor.MixProject do
       maintainers: ["Tobias Kräntzer", "Ed Ellson", "Dorian Iacobescu"],
       links: %{
         "GitHub" => @github_url,
-        "Example" => @example_github_url
-        # "Blog Post" => "https://medium.com/blog_post_url",
+        "Example" => @example_github_url,
+        "Blog Post" => @article_url
       },
       source_url: @github_url
     ]
